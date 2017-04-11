@@ -36,7 +36,7 @@ class Controller {
 	 * @param ContainerInterface $app
 	 */
 	public function __construct( ContainerInterface $app ) {
-		$this->$app   = $app;
+		$this->app   = $app;
 		$this->logger = $app->get( 'logger' );
 		$this->router = $app->get( 'router' );
 		$this->view   = $app->get( 'view' );

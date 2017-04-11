@@ -25,7 +25,7 @@ class Model {
 	/**
 	 * @param ContainerInterface $app
 	 */
-	function __construct( ContainerInterface $app ) {
+	public function __construct( ContainerInterface $app ) {
 		$this->app = $app;
 		$this->db  = $app->get( 'db' );
 	}

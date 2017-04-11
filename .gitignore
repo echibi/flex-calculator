@@ -2,4 +2,7 @@
 /node_modules/
 /vendor/
 bower_components/
-/logs/
+/logs/*
+!/logs/README.md
+# Hide credentials
+/app/settings.php

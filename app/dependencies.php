@@ -49,9 +49,52 @@ $container['db'] = function ( ContainerInterface $c ) {
 		$connection = new \Pixie\Connection( 'mysql', $config );
 		$qb         = new \Pixie\QueryBuilder\QueryBuilderHandler( $connection );
 
-	} catch ( PDOException $e ) {
+	}
+	catch ( PDOException $e ) {
 		$c->get( 'logger' )->alert( 'Database connection failed: ' . $e->getMessage() );
 	}
 
 	return $qb;
+};
+/**
+ * @param ContainerInterface $c
+ *
+ * @return \Slim\Views\Twig
+ */
+$container['view'] = function ( ContainerInterface $c ) {
+	$settings = $c->get( 'settings' )['renderer'];
+	$view     = new \Slim\Views\Twig(
+		$settings['template_path'], [
+		'cache' => false
+	]
+	);
+
+	$view->addExtension(
+		new Slim\Views\TwigExtension(
+			$c['router'],
+			$c['request']->getUri()
+		)
+	);
+	// Allow flash messages inside views.
+	// $view->getEnvironment()->addGlobal( 'flash', $c['flash'] );
+
+	/*
+	$view->getEnvironment()->addGlobal( 'auth', array(
+		'check' => $c->get( 'auth' )->check(),
+		'user'  => $c->get( 'auth' )->currentUser()
+	) );
+	*/
+
+	return $view;
+};
+
+$container['GoogleClient'] = function ( ContainerInterface $c ) {
+	return new \Google_Client(
+		array(
+			'application_name' => 'flex-calculator',
+			'client_id'        => $c['settings']['google']['client_id'],
+			'client_secret'    => $c['settings']['google']['client_secret'],
+			'redirect_uri'     => $c['settings']['google']['redirect_uri']
+		)
+	);
 };

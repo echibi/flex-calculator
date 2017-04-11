@@ -16,15 +16,15 @@ return [
 		],
 		// Monolog settings
 		'logger'                 => [
-			'name'      => 'flex',
+			'name'      => 'recipe-api',
 			'path'      => __DIR__ . '/../logs/flex.log',
 			'level'     => \Monolog\Logger::DEBUG,
 			'max_files' => 60
 		],
 		'google' => [
-			'client_id' => '940459545637-cpq73mkpeueri5fubfd3ajcs8rrr4bqa.apps.googleusercontent.com',
-			'client_secret' => 'KWUT1lp_3pKXMEOEqLzk7GJ4',
-			'redirect_uri' => 'http://localhost/flex-calculator/public/auth_callback'
+			'client_id' => '',
+			'client_secret' => '',
+			'redirect_uri' => ''
 		]
 	],
 ];

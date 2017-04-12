@@ -24,7 +24,7 @@ return [
 		'google' => [
 			'client_id' => '940459545637-cpq73mkpeueri5fubfd3ajcs8rrr4bqa.apps.googleusercontent.com',
 			'client_secret' => 'KWUT1lp_3pKXMEOEqLzk7GJ4',
-			'redirect_uri' => 'http://localhost/flex-calculator/public/auth_callback'
+			'redirect_uri' => 'http://localhost/flex-calculator/public/authcallback'
 		]
 	],
 ];

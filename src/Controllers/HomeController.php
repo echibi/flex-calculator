@@ -9,6 +9,7 @@
 namespace FlexCalculator\Controllers;
 
 
+use FlexCalculator\Auth;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -20,10 +21,22 @@ class HomeController extends Controller {
 	 * @return \Psr\Http\Message\ResponseInterface
 	 */
 	public function index( Request $request, Response $response ) {
-		return $this->view->render( $response, 'home.twig',
-			array(
-				'hej' => 'Hallå',
-			)
+
+		$viewData = array();
+		/**
+		 * @var $auth   Auth
+		 */
+		$auth = $this->app->get( 'auth' );
+
+		if ( $auth->check() ) {
+			$viewData['title'] = 'logged in.' . $auth->get_current_user();
+		} else {
+			$viewData['title'] = 'not logged in.';
+		}
+
+		return $this->view->render(
+			$response, 'home.twig',
+			$viewData
 		);
 	}
 }

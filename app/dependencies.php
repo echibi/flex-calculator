@@ -65,8 +65,8 @@ $container['view'] = function ( ContainerInterface $c ) {
 	$settings = $c->get( 'settings' )['renderer'];
 	$view     = new \Slim\Views\Twig(
 		$settings['template_path'], [
-		'cache' => false
-	]
+			'cache' => false
+		]
 	);
 
 	$view->addExtension(
@@ -88,8 +88,8 @@ $container['view'] = function ( ContainerInterface $c ) {
 	return $view;
 };
 
-$container['GoogleClient'] = function ( ContainerInterface $c ) {
-	return new \Google_Client(
+$container['google_client'] = function ( ContainerInterface $c ) {
+	$client = new \Google_Client(
 		array(
 			'application_name' => 'flex-calculator',
 			'client_id'        => $c['settings']['google']['client_id'],
@@ -97,4 +97,12 @@ $container['GoogleClient'] = function ( ContainerInterface $c ) {
 			'redirect_uri'     => $c['settings']['google']['redirect_uri']
 		)
 	);
+	$client->setAccessType('online');
+	$client->addScope( \Google_Service_Oauth2::USERINFO_PROFILE );
+
+	return $client;
+};
+
+$container['auth'] = function ( ContainerInterface $c ) {
+	return new \FlexCalculator\Auth( $c );
 };
